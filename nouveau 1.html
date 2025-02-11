@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription - Stage Immersion STI2D</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin-top: 15px;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #218838;
+        }
+        #message {
+            text-align: center;
+            margin-top: 10px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Inscription - Stage Immersion STI2D</h2>
+        <p>Inscrivez-vous pour découvrir les spécialités du bac STI2D dans notre lycée.</p>
+        
+        <form id="inscriptionForm" action="inscription.php" method="POST">
+            <label for="nom">Nom :</label>
+            <input type="text" id="nom" name="nom" required>
+            
+            <label for="prenom">Prénom :</label>
+            <input type="text" id="prenom" name="prenom" required>
+            
+            <label for="email">Email :</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="telephone">Téléphone :</label>
+            <input type="tel" id="telephone" name="telephone" required>
+            
+            <label for="etablissement">Établissement :</label>
+            <input type="text" id="etablissement" name="etablissement" required>
+            
+            <label for="specialite">Choix de spécialité STI2D :</label>
+            <select id="specialite" name="specialite">
+                <option value="SIN">Systèmes d'Information et Numérique (SIN)</option>
+                <option value="ITEC">Innovation Technologique et Eco-Conception (ITEC)</option>
+                <option value="AC">Architecture et Construction (AC)</option>
+                <option value="EE">Énergies et Environnement (EE)</option>
+            </select>
+            
+            <label for="date">Date de participation :</label>
+            <select id="date" name="date">
+                <option value="2025-03-10">10 mars 2025</option>
+                <option value="2025-04-15">15 avril 2025</option>
+            </select>
+            
+            <button type="submit">S'inscrire</button>
+        </form>
+        <p id="message"></p>
+    </div>
+    
+    <script>
+        document.getElementById("inscriptionForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            let formData = new FormData(this);
+            
+            fetch("inscription.php", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("message").textContent = data;
+            })
+            .catch(error => console.error("Erreur :", error));
+        });
+    </script>
+</body>
+</html>
